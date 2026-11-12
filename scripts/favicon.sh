@@ -32,7 +32,7 @@ cat << 'EOF' > "$PUBLIC_DIR/site.webmanifest"
     "short_name": "NMQ",
     "start_url": "/",
     "display": "fullscreen",
-    "orientation": "landscape",
+    "orientation": "portrait",
     "background_color": "#1a1c23",
     "theme_color": "#2a2d37",
     "icons": [
