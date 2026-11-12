@@ -4,6 +4,10 @@
     import Numpad from "./Numpad.svelte";
     import Player from "./Player.svelte";
     import Roomcode from "./Roomcode.svelte";
+    import { GameInfoByKey } from "#lib/games.js";
+    import { locale } from "#lib/i18n/i18n.js";
+
+    const GameInfo = GameInfoByKey("numbers");
 
     /** @type {number} */
     let aspect = $state(window.innerWidth / window.innerHeight);
@@ -161,7 +165,7 @@
             {/if}
         </h4>
 
-        <h1>Si og Skriv!</h1>
+        <h1>{GameInfo.title[$locale]}</h1>
     </div>
 
     <div class="content">

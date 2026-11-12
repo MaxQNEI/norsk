@@ -1,4 +1,5 @@
 /** @typedef {{
+ *      key: string,
  *      title: Record<string, string>,
  *      stimulus: Record<string, string>,
  *      description: Record<string, string>,
