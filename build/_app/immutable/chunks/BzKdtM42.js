@@ -1,0 +1,1 @@
+import{D as e,T as t,o as n}from"./C1UCTvyi.js";import"./BCHCIDbp.js";var r=n(!1);n(JSON.parse(localStorage.getItem(`db`)??`{}`)).subscribe(e=>localStorage.setItem(`db`,JSON.stringify(e)));var i=e(`<div class="logotype svelte-1fuyjo1"></div>`);function a(e){var n=i();t(e,n)}export{r as n,a as t};

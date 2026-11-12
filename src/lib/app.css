@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:focus {
+    outline: none;
+}
+
+/* Default Light Mode variables */
+:root {
+    --background-color: #fefefe;
+    --background-transparent-color: rgba(40, 40, 40, 0.85);
+    --shadow-color: #999999;
+    --txt-color: #101010;
+
+    --color-red: #e71400;
+    --color-violet: #d900e7;
+    --color-pink: #e74dda;
+    --color-yellow: #d0e700;
+    --color-green: #01e772;
+    --color-blue: #2c69e7;
+
+    font-family: "Underdog", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    /* line-height: 1; */
+    word-spacing: 2px;
+    letter-spacing: 2px;
+}
+
+/* Overrides for Dark Mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #121212;
+        --background-transparent-color: rgba(80, 80, 80, 0.5);
+        --shadow-color: #444444;
+        --txt-color: #fefefe;
+    }
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--txt-color);
+
+    transition: all 1000ms ease 100ms;
+}
+
+.mono {
+    font-family: "Azeret Mono", monospace;
+}
+
+a,
+a:visited {
+    color: #1e90ff;
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+button,
+.button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--color-blue);
+    color: #fefefe;
+    font: inherit;
+    cursor: pointer;
+
+    transition: all 250ms ease;
+}
+
+/* --color-red
+--color-violet
+--color-pink
+--color-yellow
+--color-green
+--color-blue */
+
+button:not(:disabled).red,
+.button:not(:disabled).red {
+    background-color: var(--color-red);
+}
+
+button:not(:disabled).violet,
+.button:not(:disabled).violet {
+    background-color: var(--color-violet);
+}
+
+button:not(:disabled).pink,
+.button:not(:disabled).pink {
+    background-color: var(--color-pink);
+}
+
+button:not(:disabled).yellow,
+.button:not(:disabled).yellow {
+    background-color: var(--color-yellow);
+    color: #101010;
+}
+
+button:not(:disabled).green,
+.button:not(:disabled).green {
+    background-color: var(--color-green);
+    color: #101010;
+}
+
+button:not(:disabled).blue,
+.button:not(:disabled).blue {
+    background-color: var(--color-blue);
+}
+
+button:disabled,
+.button:disabled {
+    filter: grayscale(1) brightness(0.75);
+    cursor: not-allowed;
+}
+
+button:not(:disabled):hover,
+.button:not(:disabled):hover {
+    filter: brightness(1.5) grayscale(0.5);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    width: 100%;
+    padding: 8px 12px;
+    padding-bottom: 7px;
+    border: 0px solid #1e90ff;
+    border-bottom-width: 1px;
+    background: rgba(255, 255, 255, 0.05);
+    font: inherit;
+    color: inherit;
+
+    transition: all 200ms ease;
+}
+
+input.error {
+    border-color: #ff6347;
+    background: rgba(255, 180, 180, 0.05);
+    color: #ff6347;
+}
+
+input:disabled {
+    filter: grayscale(1);
+    cursor: not-allowed;
+}
+
+img {
+    display: block;
+}
+
+/* ! Custom */
+.blur {
+    filter: blur(12px) grayscale(1);
+    pointer-events: none;
+}
+
+.transition-250 {
+    transition: all 250ms ease;
+}
