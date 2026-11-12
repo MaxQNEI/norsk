@@ -242,13 +242,14 @@
         transform: translateY(0);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1040px) {
         .swap-locale {
             --swap-locale-padding: 8px;
             --swap-locale-size: 96px;
         }
 
         .home {
+            width: calc(100dvw - 40px);
             padding: 20px;
         }
     }
