@@ -21,7 +21,7 @@
         "#lib/*": "./src/lib/*"
     },
     "scripts": {
-        "build": "vite build",
+        "build": " bash scripts/favicon.sh && vite build",
         "dev": "vite dev",
         "format": "prettier --write .",
         "lint": "prettier --check .",
