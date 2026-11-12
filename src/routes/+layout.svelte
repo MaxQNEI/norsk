@@ -38,6 +38,10 @@
 {#if ready}
     <Welcome />
 
+    <!-- <button type="button" class="share-qr">
+        <img src="/share-qr.svg" alt="QRShare" width="64" />
+    </button> -->
+
     <div class="root" class:show={$welcomeDisplayed}>
         <div class="content">
             {#if $welcomeDisplayed}

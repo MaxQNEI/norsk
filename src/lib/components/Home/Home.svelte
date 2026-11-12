@@ -15,7 +15,7 @@
      *      disabled?: boolean
      * }>} */
     const Links = [
-        {
+        /* {
             title: {
                 en: "Look and Write!",
                 no: "Se og Skriv!",
@@ -31,7 +31,7 @@
             href: "/image",
             available: ["desktop"],
             disabled: true,
-        },
+        }, */
 
         {
             title: {
@@ -215,6 +215,10 @@
     a {
         font-variant: petite-caps;
         color: inherit;
+    }
+
+    .header a {
+        text-decoration-thickness: 2px;
     }
 
     .info {
