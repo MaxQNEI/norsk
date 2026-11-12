@@ -1,8 +1,12 @@
 <script>
     import Numbers, { Levels } from "#lib/classes/Numbers.js";
+    import { onDestroy, onMount } from "svelte";
     import Numpad from "./Numpad.svelte";
     import Player from "./Player.svelte";
     import Roomcode from "./Roomcode.svelte";
+
+    /** @type {number} */
+    let aspect = $state(window.innerWidth / window.innerHeight);
 
     /** @type {number | null} */
     let seed = $state(null);
@@ -45,6 +49,21 @@
 
     /** @type {Numbers | null} */
     let Controller = $state(null);
+
+    /** @type {ResizeObserver} */
+    let ro;
+    onMount(() => {
+        ro = new ResizeObserver(() => onresize());
+        ro.observe(document.body);
+    });
+
+    onDestroy(() => {
+        ro.disconnect();
+    });
+
+    function onresize() {
+        aspect = window.innerWidth / window.innerHeight;
+    }
 
     $effect(() => {
         if (!seed || !player || Controller) return;
@@ -132,9 +151,9 @@
     }
 </script>
 
-<div class="numbers" class:bad>
+<div class="numbers" class:bad style="--window-aspect: {aspect}">
     <div class="title">
-        <h4>
+        <h4 class="breadcrumbs">
             {#if !player}
                 <a href="/">&larr; {"TIL STARTSIDEN"}</a>
             {:else}
@@ -201,10 +220,15 @@
 <style>
     .numbers {
         display: grid;
+        justify-content: center;
         grid-gap: 16px;
 
         width: 320px;
         text-align: center;
+    }
+
+    .breadcrumbs {
+        padding: 20px;
     }
 
     .content {
@@ -215,7 +239,10 @@
         display: grid;
         grid-gap: 16px;
 
-        aspect-ratio: 320 / 590;
+        width: 320px;
+        height: 550px;
+        max-height: calc(100dvh - 40px);
+        aspect-ratio: var(--window-aspect);
     }
 
     .game {

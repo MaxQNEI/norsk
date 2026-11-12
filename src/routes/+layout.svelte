@@ -55,7 +55,6 @@
 <style>
     .root {
         display: grid;
-        grid-gap: 20px;
         justify-items: center;
         align-content: center;
 
@@ -63,6 +62,7 @@
     }
 
     .footer {
+        padding: 20px;
         max-width: calc(100dvw - 40px);
         text-align: center;
         font-size: small;
