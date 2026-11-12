@@ -6,7 +6,7 @@ node_modules/
 .netlify
 .wrangler
 /.svelte-kit
-# /build
+/build
 
 /static/favicon-16x16.png
 /static/favicon-32x32.png

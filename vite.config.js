@@ -10,12 +10,16 @@ export default defineConfig({
                 runes: ({ filename }) => (filename.split(/[/\\]/).includes("node_modules") ? undefined : true),
             },
             adapter: adapter({
-                pages: "docs",
-                assets: "docs",
+                pages: "build",
+                assets: "build",
                 fallback: "404.html",
                 precompress: false,
                 strict: true,
             }),
+            paths: {
+                // base: process.argv.includes("dev") ? "" : "/norsk",
+                base: "",
+            },
         }),
     ],
 });
