@@ -43,7 +43,7 @@
                 en: "Two players. Work together as a team! Pass the numbers to each other one by one until you reach the end.",
                 no: "To spillere. Jobb sammen som et lag! Gi tallene til hverandre ett etter ett til dere når slutten.",
             },
-            image: "game-numbers.png",
+            image: "game-numbers-320.png",
             href: "/numbers",
             available: ["desktop", "mobile"],
             players: { required: 2 },
