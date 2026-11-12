@@ -59,6 +59,7 @@
 
 <style>
     button {
+        padding: 0;
         font-size: xx-large;
     }
 
