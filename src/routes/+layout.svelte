@@ -2,7 +2,7 @@
     import "#lib/app.css";
     import Welcome from "#lib/components/Home/Welcome.svelte";
     import { welcomeDisplayed } from "#lib/stores/app.js";
-    import { onMount } from "svelte";
+    import { onDestroy, onMount } from "svelte";
 
     let { children } = $props();
 
@@ -16,7 +16,40 @@
         } catch (e) {
             ready = true;
         }
+
+        window.addEventListener("dragstart", onWindowDragStart);
+        window.addEventListener("selectstart", onWindowSelectStart);
     });
+
+    onDestroy(() => {
+        window.removeEventListener("dragstart", onWindowDragStart);
+        window.removeEventListener("selectstart", onWindowSelectStart);
+    });
+
+    /**
+     * @param {DragEvent} event
+     */
+    function onWindowDragStart(event) {
+        // @ts-ignore
+        const is = event.target.getAttribute("draggable");
+        if (is === null || is === "false") event.preventDefault();
+    }
+
+    /**
+     * @param {Event } event
+     */
+    function onWindowSelectStart(event) {
+        try {
+            // @ts-ignore
+            const target = event.target.nodeType === 3 ? event.target.parentElement : event.target;
+            // @ts-ignore
+            const is = target.getAttribute("selectable");
+            if (is === null || is === "false") event.preventDefault();
+        } catch (e) {
+            console.log(event.target);
+            throw e;
+        }
+    }
 </script>
 
 <svelte:head>
@@ -51,6 +84,7 @@
 
         <div class="footer">
             <span>&copy; {new Date().getFullYear()} Maksym Radul.</span>
+            <br />
             <span>All rights reserved.</span>
         </div>
     </div>
@@ -71,7 +105,6 @@
         text-align: center;
         font-size: small;
 
-        user-select: none;
         pointer-events: none;
     }
 

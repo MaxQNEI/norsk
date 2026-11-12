@@ -43,7 +43,8 @@
     <h1>ROMKODE</h1>
 
     {#if player === 1}
-        <input type="text" bind:value={roomcode} disabled />
+        <!-- <input type="text" bind:value={roomcode} disabled /> -->
+        <div class="input-text">{@html roomcode || "&nbsp;"}</div>
 
         <div class="buttons" class:allow>
             <button class="blue" type="button" onclick={newseed}>&olarr;</button>

@@ -1,20 +1,15 @@
 <script>
-    import { onMount } from "svelte";
-    import Logotype from "#lib/components/Logotype.svelte";
     import { locale } from "#lib/i18n/i18n.js";
     import { isMobileDevice } from "#lib/is-mobile-device.js";
     import { welcomeDisplayed } from "#lib/stores/app.js";
+    import { onMount } from "svelte";
+    import GameCard from "./GameCard.svelte";
+    import AnimatedTitle from "./AnimatedTitle.svelte";
 
-    /**
-     * @type {Array<{
-     *      title: Record<string, string>,
-     *      stimulus: Record<string, string>,
-     *      description: Record<string, string>,
-     *      href: string,
-     *      available: string[],
-     *      disabled?: boolean
-     * }>} */
-    const Links = [
+    const DesktopCardsPerRow = 3;
+
+    /** @type {Array<import("#lib/types.js").Game>} */
+    const Games = [
         /* {
             title: {
                 en: "Look and Write!",
@@ -28,26 +23,31 @@
                 en: "Look at the picture. Write the words in Norwegian as fast as you can. You get more points when you are fast.",
                 no: "Se på bildet. Skriv ordene på norsk så fort du kan. Du får flere poeng når du er rask.",
             },
+            image: "",
             href: "/image",
             available: ["desktop"],
             disabled: true,
+            players: { required: 1 },
         }, */
 
         {
             title: {
-                en: "Say and Write!",
-                no: "Si og Skriv!",
+                en: "41!",
+                no: "41!",
             },
             stimulus: {
-                en: "Say the number out loud to your friend, and your friend types it",
-                no: "Si tallet høyt til din venn, og venn din skriver det",
+                en: "Say the number to your friend, take turns, and reach the end together!",
+                no: "Si tallet til din venn, ta tur, og nå slutten sammen!",
             },
             description: {
-                en: "Two players. Player 1 sees a number and says it out loud. Player 2 types the number. Take turns! Who can do it?",
-                no: "To spillere. Spiller 1 ser et tall og sier det høyt. Spiller 2 skriver tallene. Bytt tur! Hvem klarer det?",
+                en: "Two players. Work together as a team! Pass the numbers to each other one by one until you reach the end.",
+                no: "To spillere. Jobb sammen som et lag! Gi tallene til hverandre ett etter ett til dere når slutten.",
             },
+            image: "game-numbers.png",
             href: "/numbers",
             available: ["desktop", "mobile"],
+            players: { required: 2 },
+            disabled: false,
         },
     ];
 
@@ -57,140 +57,71 @@
     /** @type {boolean} */
     let show = $derived($welcomeDisplayed);
 
-    /** @type {string | null} */
-    let prevLocale = null;
-
     onMount(() => setTimeout(() => (ready = true), 100));
 
     /**
-     * @param {string} word
+     * @param {any[]} array
+     * @param {number} count
      */
-    function ucFirst(word) {
-        return `${word[0].toUpperCase()}${word.slice(1).toLowerCase()}`;
-    }
+    function ceil(array, count) {
+        if (array.length < count) return array;
 
-    /**
-     * @param {string} device
-     */
-    function isAvailable(device) {
-        return (device === "desktop" && !isMobileDevice) || (device === "mobile" && isMobileDevice) || false;
-    }
-
-    function onswapdown() {
-        if (!prevLocale) prevLocale = $locale;
-
-        window.addEventListener("pointerup", onswapup);
-        window.addEventListener("touchcancel", onswapup);
-        window.addEventListener("touchend", onswapup);
-
-        function onswapup() {
-            window.removeEventListener("pointerup", onswapup);
-            window.removeEventListener("touchcancel", onswapup);
-            window.removeEventListener("touchend", onswapup);
-
-            if (prevLocale) {
-                $locale = prevLocale;
-                prevLocale = null;
-            }
-        }
-
-        $locale = "en";
-    }
-
-    /**
-     * @param {MouseEvent} event
-     */
-    function onswapcontextmenu(event) {
-        event.preventDefault();
+        if (array.length % count === 0) return array;
+        const newArray = [...array];
+        const upto = Math.ceil(array.length / count) * count;
+        while (newArray.length < upto) newArray.push({ disabled: true, hide: true });
+        return newArray;
     }
 </script>
 
-<button
-    class="swap-locale"
-    class:ready={ready && show}
-    type="button"
-    onpointerdown={onswapdown}
-    ontouchstart={onswapdown}
-    oncontextmenu={onswapcontextmenu}
->
-    <Logotype />
-</button>
+<div class="home fx" class:show={ready && show}>
+    <h1 class="logotype" class:show={ready && show}>
+        <img class="logotype-image" src="/images/logotype-256.png" alt="Logotype" />
 
-<div class="home fx" class:ready={ready && show}>
-    <div class="games">
-        {#each Links as { title, stimulus, description, href, available, disabled }, index}
-            <div class="game fx" class:disabled style="transition-delay: {(index + 1) * 200}ms;">
-                <div class="header fx" style="transition-delay: {(index + 1) * 200 + 200}ms;">
-                    <h2>
-                        <a {href} style="pointer-events: {disabled ? 'none' : 'all'}">
-                            {title[$locale]}
-                        </a>
-                    </h2>
-                </div>
+        <span class="logotype-text">
+            <AnimatedTitle text="NORSK" show={ready && show} duration={150} delay={250} />
+        </span>
+    </h1>
 
-                <!-- <div class="stimulus" style="transition-delay: {(index + 1) * 200 + 400}ms;">
-                    <p>
-                        <i>
-                            {stimulus[$locale] || stimulus["no"]}
-                        </i>
-                    </p>
-                </div> -->
-
-                <div class="description fx" style="transition-delay: {(index + 1) * 200 + 600}ms;">
-                    {description[$locale] || description["no"]}
-                </div>
-
-                <div class="info fx" style="transition-delay: {(index + 1) * 200 + 800}ms;">
-                    Available:
-                    {#each available as device, index}
-                        <span class="device" class:available={isAvailable(device)}>
-                            {ucFirst(device)}
-                        </span>
-                        {available.length - 1 !== index ? " & " : ""}
-                    {/each}
-                </div>
-            </div>
+    <div class="games" style="--gtc: repeat({Math.min(Games.length, DesktopCardsPerRow)}, 1fr)">
+        {#each ceil(Games, 3) as game, index}
+            <GameCard {...game} {index} />
         {/each}
     </div>
 </div>
 
 <style>
-    .swap-locale {
-        --swap-locale-padding: 32px;
-        --swap-locale-size: 128px;
-
-        position: fixed;
-        z-index: 1024;
-        right: var(--swap-locale-padding);
-        bottom: var(--swap-locale-padding);
-
-        width: var(--swap-locale-size);
-        aspect-ratio: 1;
-        padding: 0;
-        border: unset;
-        background: unset;
-
-        white-space: wrap;
-
-        opacity: 0;
-        transition: all 500ms ease-in-out;
-    }
-
-    .swap-locale.ready {
-        opacity: 1;
-        transition-delay: 500ms;
-    }
-
     .home {
-        width: 100%;
-        max-width: 1000px;
+        display: grid;
+        grid-gap: 20px;
+        justify-content: center;
+        padding: 20px;
+    }
 
-        user-select: none;
+    .logotype {
+        display: grid;
+        grid-auto-flow: column;
+        justify-items: center;
+        justify-content: center;
+        align-items: center;
+        grid-gap: 10px;
+    }
+
+    .logotype-image {
+        height: 80px;
+
+        transition: all 250ms ease-in-out;
+    }
+
+    .logotype:hover .logotype-image {
+        transform: scale(1.1);
     }
 
     .games {
         display: grid;
         grid-gap: 20px;
+        /* grid-template-columns: repeat(3, 1fr); */
+        grid-template-columns: var(--gtc);
         align-content: flex-start;
 
         padding: 20px;
@@ -198,63 +129,33 @@
         background-color: var(--background-transparent-color);
     }
 
-    .game {
-        display: grid;
-        grid-gap: 8px;
-
-        border-radius: 10px;
-        padding: 20px;
-        background-color: var(--background-transparent-color);
-    }
-
-    .game.disabled {
-        /* opacity: 0.2 !important; */
-        filter: brightness(5) brightness(0.1);
-    }
-
-    a {
-        font-variant: petite-caps;
-        color: inherit;
-    }
-
-    .header a {
-        text-decoration-thickness: 2px;
-    }
-
-    .info {
-        font-size: small;
-    }
-
-    .available {
-        text-decoration: underline;
-    }
-
-    .fx {
+    .home.fx,
+    .home :global(.fx) {
         transition: all 500ms ease-out;
     }
 
     /* FX */
-    .home:not(.ready),
-    .home:not(.ready) .fx {
+    .home:not(.show),
+    .home:not(.show) :global(.fx) {
         opacity: 0;
-        transform: translateY(-2dvh);
+        transform: translateY(-1dvh);
     }
 
-    .home.ready,
-    .home.ready .fx {
+    .home.show,
+    .home.show :global(.fx) {
         opacity: 1;
         transform: translateY(0);
     }
 
-    @media (max-width: 1040px) {
-        .swap-locale {
-            --swap-locale-padding: 8px;
-            --swap-locale-size: 96px;
+    @media (max-width: 840px) {
+        .home {
+            width: calc(100dvw);
+            padding: 20px;
         }
 
-        .home {
-            width: calc(100dvw - 40px);
-            padding: 20px;
+        .games {
+            grid-template-columns: 1fr;
+            /* width: max-content; */
         }
     }
 </style>

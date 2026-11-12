@@ -25,9 +25,9 @@
     font-family: "Underdog", system-ui;
     font-weight: 400;
     font-style: normal;
-    /* line-height: 1; */
     word-spacing: 2px;
     letter-spacing: 2px;
+    cursor: default;
 }
 
 /* Overrides for Dark Mode */
@@ -124,6 +124,7 @@ button:not(:disabled):hover,
     filter: brightness(1.5) grayscale(0.5);
 }
 
+.input-text,
 input[type="text"],
 input[type="password"],
 input[type="number"] {
@@ -139,12 +140,14 @@ input[type="number"] {
     transition: all 200ms ease;
 }
 
+.input-text.error,
 input.error {
     border-color: #ff6347;
     background: rgba(255, 180, 180, 0.05);
     color: #ff6347;
 }
 
+.input-text.disabled,
 input:disabled {
     filter: grayscale(1);
     cursor: not-allowed;

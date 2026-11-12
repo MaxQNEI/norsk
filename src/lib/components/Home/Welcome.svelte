@@ -3,8 +3,7 @@
     import { welcomeDisplayed } from "#lib/stores/app.js";
     import { rand } from "#lib/rand.js";
     import Logotype from "#lib/components/Logotype.svelte";
-
-    const Letters = "NORSK".split("");
+    import AnimatedTitle from "./AnimatedTitle.svelte";
 
     /** @type {boolean} */
     let show = $state(false);
@@ -43,10 +42,6 @@
         hide = true;
         $welcomeDisplayed = true;
     }
-
-    function randTransfrom() {
-        return rand(-40, 40);
-    }
 </script>
 
 <div class="welcome" class:show class:hide>
@@ -58,17 +53,7 @@
     </div>
 
     <h1>
-        {#each Letters as letter, index}
-            <span
-                style="
-                    transition-delay: {index * 150 + 1000}ms;
-                    --ttx: {randTransfrom()}px;
-                    --tty: {randTransfrom()}px;
-                "
-            >
-                {letter}
-            </span>
-        {/each}
+        <AnimatedTitle text="NORSK" {show} delay={1000} />
     </h1>
 </div>
 
@@ -124,6 +109,10 @@
             filter 1000ms ease-out 1000ms;
     }
 
+    .welcome:not(.show) {
+        pointer-events: none;
+    }
+
     .welcome.show .ripple {
         border: 64px solid #fefefe;
         transform: scale(32);
@@ -134,20 +123,6 @@
         opacity: 1;
         transform: scale(1);
         filter: drop-shadow(0 0 16 #fefefe);
-    }
-
-    h1 > span {
-        display: inline-block;
-        opacity: 0;
-        transform: translateX(var(--ttx)) translateY(var(--tty));
-        transition:
-            all 500ms ease-out,
-            transform 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275) 500ms;
-    }
-
-    .welcome.show h1 > span {
-        opacity: 1;
-        transform: translateX(0) translateY(0);
     }
 
     .welcome.show.hide {

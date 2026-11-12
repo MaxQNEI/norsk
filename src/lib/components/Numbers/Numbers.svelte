@@ -84,8 +84,8 @@
     });
 
     $effect(() => {
-        if (number.length > 11) {
-            number = number.slice(0, 11);
+        if (number.length > 10) {
+            number = number.slice(0, 10);
         }
     });
 
@@ -182,7 +182,11 @@
                         {#if player === 1 && complete === total}
                             <div>Ferdig...</div>
                         {:else if (player === 1 && complete < total) || player === 2}
-                            <div>{pronounce !== "" ? `Uttale: ${pronounce}` : "Hør..."}</div>
+                            <div>
+                                {@html pronounce !== ""
+                                    ? `<span style="font-size: smaller">Uttale</span><br />${pronounce}`
+                                    : "Hør..."}
+                            </div>
                         {/if}
 
                         {#if complete === total}
@@ -195,7 +199,7 @@
 
                 <div>
                     {#if complete < total}
-                        <input type="text" bind:value={number} disabled />
+                        <div class="input-text">{@html number || "&nbsp;"}</div>
                     {/if}
                 </div>
 
@@ -248,13 +252,14 @@
     .game {
         display: grid;
         grid-gap: 8px;
-        grid-template-rows: repeat(3, max-content) 1fr;
+        grid-template-rows: 1fr max-content max-content max-content;
     }
 
-    .game input {
+    .game .input-text {
         text-align: center;
-        letter-spacing: 8px;
+        letter-spacing: 4px;
         font-size: xx-large;
+        word-break: break-all;
     }
 
     .level-current {
