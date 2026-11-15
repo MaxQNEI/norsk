@@ -59,6 +59,8 @@
 
 <style>
     .welcome {
+        --ttf: cubic-bezier(1, -1, 0, 2);
+
         position: fixed;
         z-index: 4096;
         top: 0;
@@ -93,20 +95,21 @@
         border-radius: var(--scale-end);
         filter: drop-shadow(0 0 16px #fefefe) opacity(0.5);
 
-        transform: scale(0);
+        transform: scale(1);
 
         transition:
-            all 5000ms ease-out,
-            opacity 2000ms ease-out 1000ms;
+            all 5000ms ease-in-out,
+            opacity 2000ms ease-in-out 1000ms;
     }
 
     .image {
         opacity: 0;
         transform: scale(1.5);
+        filter: drop-shadow(0 0 0px #fefefe);
         transition:
-            all 500ms ease-out 100ms,
-            transform 1000ms ease-out 250ms,
-            filter 1000ms ease-out 1000ms;
+            all 500ms ease-in-out 100ms,
+            transform 1000ms var(--ttf) 250ms,
+            filter 1000ms ease-in-out 1000ms;
     }
 
     .welcome:not(.show) {
@@ -122,7 +125,7 @@
     .welcome.show .image {
         opacity: 1;
         transform: scale(1);
-        filter: drop-shadow(0 0 16 #fefefe);
+        filter: drop-shadow(0 0 32px #fefefe);
     }
 
     .welcome.show.hide {

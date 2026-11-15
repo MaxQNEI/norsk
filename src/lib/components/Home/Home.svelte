@@ -69,10 +69,6 @@
         transition: all 250ms ease-in-out;
     }
 
-    .logotype:hover .logotype-image {
-        transform: scale(1.1);
-    }
-
     .games {
         display: grid;
         grid-gap: 20px;

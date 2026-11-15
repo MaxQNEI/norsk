@@ -11,7 +11,7 @@
     let number = $derived((index ?? 0) + 1);
 
     /** @type {boolean} */
-    let turn = $derived(false);
+    let flipped = $state(false);
 
     let fxIndex = 0;
     function fxDelay() {
@@ -20,23 +20,23 @@
         return d;
     }
 
-    function onCardClick() {
-        turn = !turn;
+    function flip() {
+        flipped = !flipped;
     }
 
     /**
      * @param {MouseEvent} event
      */
-    function onPlayClick(event) {
+    function play(event) {
         event.preventDefault();
         href && goto(href);
     }
 </script>
 
-<!-- svelte-ignore a11y_click_events_have_key_events -->
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="game" class:turn class:disabled class:hide onclick={onCardClick}>
+<div class="game" class:flipped class:disabled class:hide>
     <div class="front">
+        <button class="flip" onclick={flip} title="Flip"></button>
+
         {#if title}
             <div class="header fx" style="transition-delay: {fxDelay()}ms;">
                 <h2>
@@ -49,9 +49,9 @@
             <div
                 class="game-image fx"
                 style="
-            background-image: url('/images/{image}');
-            transition-delay: {fxDelay()}ms;
-        "
+                    background-image: url('/images/{image}');
+                    transition-delay: {fxDelay()}ms;
+                "
             ></div>
         {/if}
 
@@ -65,8 +65,10 @@
     </div>
 
     <div class="back">
+        <button class="flip" onclick={flip} title="Flip"></button>
+
         {#if stimulus}
-            <h3>{stimulus[$locale]}</h3>
+            <h4>{stimulus[$locale]}</h4>
         {/if}
 
         <!-- {#if players}
@@ -80,14 +82,19 @@
         {/if} -->
 
         <div>
-            <button type="button" class="green" onclick={onPlayClick} style="width: 100%">
-                <h3>SPILL!</h3>
+            <button type="button" class="green zi2" onclick={play} style="width: 100%">
+                <h1 class="h3">SPILL!</h1>
             </button>
         </div>
     </div>
 </div>
 
 <style>
+    .zi2 {
+        position: relative;
+        z-index: 2;
+    }
+
     .game {
         position: relative;
 
@@ -97,6 +104,13 @@
 
         max-width: 240px;
         text-align: left;
+    }
+
+    button.flip {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        opacity: 0;
     }
 
     .front,
@@ -115,26 +129,20 @@
 
     .back {
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-
+        inset: 0;
         opacity: 0;
         transform: rotateY(-180deg);
 
         pointer-events: none;
     }
 
-    .game.turn .front {
+    .game.flipped .front {
         opacity: 0;
         transform: rotateY(180deg);
         pointer-events: none;
     }
 
-    .game.turn .back {
+    .game.flipped .back {
         opacity: 1;
         transform: rotateY(0deg);
         pointer-events: all;
