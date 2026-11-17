@@ -102,7 +102,7 @@
         border-radius: 10px;
         background-color: var(--background-transparent-color);
 
-        max-width: 240px;
+        max-width: 360px;
         text-align: left;
     }
 
@@ -179,7 +179,6 @@
     @media (max-width: 840px) {
         .game {
             grid-template-columns: none;
-            max-width: 320px;
         }
 
         .game.hide {

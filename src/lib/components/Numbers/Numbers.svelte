@@ -231,7 +231,7 @@
         justify-content: center;
         grid-gap: 16px;
 
-        width: 320px;
+        max-width: 360px;
         text-align: center;
     }
 
@@ -247,7 +247,7 @@
         display: grid;
         grid-gap: 16px;
 
-        width: 320px;
+        max-width: 360px;
         height: 550px;
         max-height: calc(100dvh - 40px);
         aspect-ratio: var(--window-aspect);
@@ -278,7 +278,7 @@
         animation: Error 500ms ease-out 1 forwards;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 360px) {
         .numbers {
             width: calc(100dvw - 40px);
         }

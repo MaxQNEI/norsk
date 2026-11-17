@@ -1,3 +1,5 @@
+import { LinkNumbers } from "./links.js";
+
 /** @type {Array<import("#lib/types.js").Game>} */
 export const Games = [
     /* {
@@ -26,8 +28,8 @@ export const Games = [
         key: "numbers",
 
         title: {
-            en: "41!",
-            no: "41!",
+            en: "Numbers",
+            no: "Tall",
         },
         stimulus: {
             en: "Say the number to your friend, take turns, and reach the end together!",
@@ -38,7 +40,7 @@ export const Games = [
             no: "To spillere. Jobb sammen som et lag! Gi tallene til hverandre ett etter ett til dere når slutten.",
         },
         image: "game-numbers-320.png",
-        href: "/numbers",
+        href: LinkNumbers(),
         available: ["desktop", "mobile"],
         players: { required: 2 },
         disabled: false,
