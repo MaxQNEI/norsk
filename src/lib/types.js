@@ -7,7 +7,7 @@
  *      href: string,
  *      available: string[],
  *      players: { required?: number, min?: number, max?: number },
- *      disabled?: boolean
+ *      disabled?: boolean | { reason: Record<string, string> }
  * }} Game */
 
 export {};

@@ -2,34 +2,12 @@ import { LinkNumbers } from "./links.js";
 
 /** @type {Array<import("#lib/types.js").Game>} */
 export const Games = [
-    /* {
-        key: "image",
-
-        title: {
-            en: "Look and Write!",
-            no: "Se og Skriv!",
-        },
-        stimulus: {
-            en: "Look at the picture and write the word in Norwegian",
-            no: "Se på bildet og skriv ordet på norsk",
-        },
-        description: {
-            en: "Look at the picture. Write the words in Norwegian as fast as you can. You get more points when you are fast.",
-            no: "Se på bildet. Skriv ordene på norsk så fort du kan. Du får flere poeng når du er rask.",
-        },
-        image: "",
-        href: "/image",
-        available: ["desktop"],
-        disabled: true,
-        players: { required: 1 },
-    }, */
-
     {
         key: "numbers",
 
         title: {
-            en: "Numbers",
-            no: "Tall",
+            en: "Which number?",
+            no: "Hvilket tall?",
         },
         stimulus: {
             en: "Say the number to your friend, take turns, and reach the end together!",
@@ -44,6 +22,33 @@ export const Games = [
         available: ["desktop", "mobile"],
         players: { required: 2 },
         disabled: false,
+    },
+
+    {
+        key: "image",
+
+        title: {
+            en: "I see...",
+            no: "Jeg ser...",
+        },
+        stimulus: {
+            en: "Spot it, type it, beat the clock!",
+            no: "Finn det, skriv det, slå klokken!",
+        },
+        description: {
+            en: "Identify what's on the screen and type the Norwegian word before time runs out. Speed triggers bonus points!",
+            no: "Finn ut hva som er på skjermen og skriv det norske ordet før tiden renner ut. Raskere svar gir bonuspoeng!",
+        },
+        image: "game-image-320.png",
+        href: "/image",
+        available: ["desktop"],
+        disabled: {
+            reason: {
+                en: "Coming soon",
+                no: "Kommer snart",
+            },
+        },
+        players: { required: 1 },
     },
 ];
 
