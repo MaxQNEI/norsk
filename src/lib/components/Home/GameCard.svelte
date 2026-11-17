@@ -127,7 +127,7 @@
         <div class="play">
             <button type="button" class="green zi2" onclick={play} style="width: 100%" disabled={!!disabled}>
                 <span class="h1">
-                    {#if disabled && disabled.reason}
+                    {#if typeof disabled === "object" && disabled.reason}
                         {disabled.reason[$locale]}
                     {:else}
                         SPILL!
