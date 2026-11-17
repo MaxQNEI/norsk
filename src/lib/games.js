@@ -32,12 +32,12 @@ export const Games = [
             no: "Jeg ser...",
         },
         stimulus: {
-            en: "Spot it, type it, beat the clock!",
-            no: "Finn det, skriv det, slå klokken!",
+            en: "What is it? Type fast!",
+            no: "Hva er det? Skriv fort!",
         },
         description: {
-            en: "Identify what's on the screen and type the Norwegian word before time runs out. Speed triggers bonus points!",
-            no: "Finn ut hva som er på skjermen og skriv det norske ordet før tiden renner ut. Raskere svar gir bonuspoeng!",
+            en: "Look at the picture. Write the word in Norwegian. Be quick and get more points!",
+            no: "Se på bildet. Skriv ordet på norsk. Vær rask og få flere poeng!",
         },
         image: "game-image-320.png",
         href: "/image",
